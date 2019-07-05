@@ -34,8 +34,20 @@
 
 
 /* =========== */
+:root {
+  --inputbackground: rgb(195, 193, 193);
+}
 
 .body {
 	position: relative;
 	top: 60px;
+}
+
+.filters-wrapper {
+	display: flex;
+	align-content: space-around;
+}
+
+.filters-wrapper input{
+  background-color: var(--inputbackground);
 }
