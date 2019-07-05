@@ -1,25 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
+import './css/main.css';
+import './css/materialize.css';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import NotFound from './components/NotFound';
+import Students from "./components/Students";
+import Teachers from "./components/Teachers";
+import rootStore from "./store"
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Provider store={rootStore}>
+        <Route path="/">
+
+          <Switch>
+
+            <Route path="/" exact={true} render={() => (<Redirect to={"/students"} />)} />
+            <Route path="/students" exact={true} component={Students} />
+            <Route path="/teachers" exact={true} component={Teachers} />
+
+            <Route component={NotFound} />
+          </Switch>
+
+        </Route>
+      </Provider>
+    </BrowserRouter>
   );
 }
 
