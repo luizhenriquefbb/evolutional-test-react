@@ -9,10 +9,13 @@ export function createMoreStudents(allDegrees, allRelations, allClasses) {
 }
 
 
-export function editOneStudent(studentId) {
+export function editOneStudent(studentId, name, classId,  degreeId) {
 
     return {
         type: "EDIT_ONE_STUDENT",
-        studentId
+        studentId, 
+        name, 
+        classId, 
+        degreeId
     }
 }

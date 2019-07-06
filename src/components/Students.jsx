@@ -4,19 +4,20 @@ import { connect } from "react-redux";
 import $ from "jquery";
 window.$ = $; // to use in terminal while developing
 import * as studentActions from "../actions/studentActions";
+import EditStudentPopup from './EditStudentPopup';
 
 
 
 class Students extends Component {
 
-    constructor(props) {
+    constructor(props){
         super(props);
 
         this.state = {
-            filter: {
-                studentName: ""
-            }
+            studentToEdit : null
         }
+
+        window.students = this;
     }
 
     getClassById(class_id) {
@@ -82,9 +83,18 @@ class Students extends Component {
         this.props.dispatch((studentActions.createMoreStudents(this.props.degrees, this.props.relations, this.props.classes)));
     }
 
-    editOneStudent(studentId){
-        this.props.dispatch(studentActions.editOneStudent(studentId));
+    editOneStudent(studentToEdit){
+        console.log("editOneStudent");
+        
+        $(".hover_bkgr_fricc").show(500);
+
+        this.setState({
+            studentToEdit
+        });
+
+        
     }
+
 
     render() {
         const students = this.props.students;
@@ -116,7 +126,7 @@ class Students extends Component {
                                     <td className="studentName">{student.name}</td>
                                     <td className="studentDegree">{this.getDegreeById(student.degreeId).name}</td>
                                     <td className="studentClass">{this.getClassById(student.classId).name}</td>
-                                    <td className="StudentEdit">
+                                    <td className="StudentEdit" onClick={() => this.editOneStudent(student)}>
                                         <i style={{fontSize:"23px"}} className="fa">&#xf044;</i>
                                     </td>
                                 </tr>
@@ -128,6 +138,9 @@ class Students extends Component {
                         <a className="waves-effect waves-light btn" onClick={() => this.createMoreStudents()}>Gerar mais estudantes</a>
                     </div>
                 </div>
+            
+                <EditStudentPopup studentToEdit={this.state.studentToEdit} getClassById={this.getClassById} getDegreeById={this.getDegreeById} />
+                
             </div>
         );
     }

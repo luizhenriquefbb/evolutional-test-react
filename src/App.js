@@ -10,6 +10,7 @@ import rootStore from "./store"
 import { Provider } from "react-redux";
 
 function App() {
+  window.rootStore = rootStore;
   return (
     <BrowserRouter>
       <Provider store={rootStore}>

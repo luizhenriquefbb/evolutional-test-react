@@ -39,7 +39,7 @@ function StudentReducer(state = INITIAL_STATE, action) {
                 let allRelationsDegrees = allRelations.map(allRelations => allRelations.degrees); // get only degrees relationship
                 allRelationsDegrees = [].concat.apply([], allRelationsDegrees); // merge in a single list
 
-                const allDegreesWithId = allRelationsDegrees.filter(el => el.degreeId == randomDegree.id);
+                const allDegreesWithId = allRelationsDegrees.filter(el => el.degreeId === randomDegree.id);
 
                 const randomDegreeWithId = allDegreesWithId[Math.floor(Math.random() * allDegreesWithId.length)];
 
@@ -48,9 +48,9 @@ function StudentReducer(state = INITIAL_STATE, action) {
                 const the_class = allClasses.find(a_class => {
                     // the data are inconsistent: some relatioships have key "classPosition" others "classId" 
                     if (randomClassPosition.hasOwnProperty("classPosition")) {
-                        return a_class.id == randomClassPosition.classPosition;
+                        return a_class.id === randomClassPosition.classPosition;
                     } else {
-                        return a_class.id == randomClassPosition.classId;
+                        return a_class.id === randomClassPosition.classId;
                     }
                 });
 
@@ -79,7 +79,32 @@ function StudentReducer(state = INITIAL_STATE, action) {
         // colone original state
         const newState = JSON.parse(JSON.stringify(state));
 
+        const _student_id = action.studentId;
+        const new_name = action.name;
+        const new_classId = action.classId;
+        const new_degreeId = action.degreeId;
 
+        let student_index;
+        let studentToChange = newState.students.find((student, index) => {
+            if (student.id === _student_id){
+                student_index = index;
+                return true;
+            }
+            else{
+                return false;
+            }
+            
+        });
+
+        studentToChange = {
+            ...studentToChange,
+            name: new_name,
+            classId: new_classId,
+            degreeId: new_degreeId
+
+        }
+
+        newState.students[student_index] = studentToChange;
 
         return newState;
     }
