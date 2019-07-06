@@ -21,12 +21,7 @@ function degreesReducer(state = INITIAL_STATE, action) {
         return state;
     }
 
-   
-
-    else {
-        console.log("else");
-        return state;
-    }
+    return state;
 }
 
 export default degreesReducer;

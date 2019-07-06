@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Header from './Header';
 import { connect } from "react-redux";
 import $ from "jquery";
-window.$ = $;
+window.$ = $; // to use in terminal while developing
+import * as studentActions from "../actions/studentActions";
+
+
 
 class Students extends Component {
 
@@ -31,11 +34,11 @@ class Students extends Component {
         const userDegree = $("form.filters-wrapper").find("input#studentDegreeFilter").val().toLowerCase();
         const userClass = $("form.filters-wrapper").find("input#studentClassFilter").val().toLowerCase();
 
-        const all_table_trs = $("table#studentTable").find("tbody").find("tr");
+        const table_tbody = $("table#studentTable").find("tbody");
 
         // filter by user name
         if(userName){
-            all_table_trs.each((_, tr) => {
+            table_tbody.find("tr:visible").each((_, tr) => {
                 if ($(tr).find("td.studentName").text().toLowerCase().includes(userName)){
                     $(tr).show();
                 }
@@ -47,7 +50,7 @@ class Students extends Component {
 
         // filter by degree
         if(userDegree){
-            all_table_trs.each((_, tr) => {
+            table_tbody.find("tr:visible").each((_, tr) => {
                 if ($(tr).find("td.studentDegree").text().toLowerCase().includes(userDegree)){
                     $(tr).show();
                 }
@@ -59,7 +62,7 @@ class Students extends Component {
 
         // filter by class
         if(userClass){
-            all_table_trs.each((_, tr) => {
+            table_tbody.find("tr:visible").each((_, tr) => {
                 if ($(tr).find("td.studentClass").text().toLowerCase().includes(userClass)){
                     $(tr).show();
                 }
@@ -70,9 +73,17 @@ class Students extends Component {
         }
 
         if (!userName && !userDegree && !userClass){
-            all_table_trs.show();
+            table_tbody.find("tr").show();
         }
 
+    }
+
+    createMoreStudents(){
+        this.props.dispatch((studentActions.createMoreStudents(this.props.degrees, this.props.relations, this.props.classes)));
+    }
+
+    editOneStudent(studentId){
+        this.props.dispatch(studentActions.editOneStudent(studentId));
     }
 
     render() {
@@ -95,6 +106,7 @@ class Students extends Component {
                                 <th>Nome</th>
                                 <th>Grau</th>
                                 <th>Classe</th>
+                                <th>Editar</th>
                             </tr>
                         </thead>
 
@@ -104,10 +116,17 @@ class Students extends Component {
                                     <td className="studentName">{student.name}</td>
                                     <td className="studentDegree">{this.getDegreeById(student.degreeId).name}</td>
                                     <td className="studentClass">{this.getClassById(student.classId).name}</td>
+                                    <td className="StudentEdit">
+                                        <i style={{fontSize:"23px"}} className="fa">&#xf044;</i>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+
+                    <div style={{textAlign: "center", marginTop: "43px"}}>
+                        <a className="waves-effect waves-light btn" onClick={() => this.createMoreStudents()}>Gerar mais estudantes</a>
+                    </div>
                 </div>
             </div>
         );
@@ -118,7 +137,9 @@ function mapStateToProps(state) {
     return {
         students: state.studentReducer.students,
         classes: state.classesReducer.classes.classes,
-        degrees: state.degreesReducer.degrees
+        degrees: state.degreesReducer.degrees,
+        relations: state.relationsReducer.relationships,
+
     }
 }
 

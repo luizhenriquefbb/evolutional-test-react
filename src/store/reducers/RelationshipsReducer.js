@@ -17,16 +17,7 @@ function relationsReducer(state = INITIAL_STATE, action) {
         return state;
     }
 
-    if (action.type === "____") {
-        return state;
-    }
-
-   
-
-    else {
-        console.log("else");
-        return state;
-    }
+    return state;
 }
 
 export default relationsReducer;

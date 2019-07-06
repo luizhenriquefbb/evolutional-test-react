@@ -21,12 +21,8 @@ function classesReducer(state = INITIAL_STATE, action) {
         
     }
 
-   
+    return state;
 
-    else {
-        console.log("else");
-        return state;
-    }
 }
 
 export default classesReducer;
