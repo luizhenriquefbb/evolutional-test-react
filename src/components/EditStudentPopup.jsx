@@ -85,11 +85,12 @@ class EditStudentPopUp extends Component {
         // - using for multiples users
         if (!this.state.studentToEdit ||
             (this.state.studentToEdit && this.state.studentToEdit.id !== this.props.studentToEdit.id)) {
-            this.state = ({
-                ...this.state,
-                studentToEdit: this.props.studentToEdit
-            })
-        }
+                // eslint-disable-next-line
+                this.state = ({
+                    ...this.state,
+                    studentToEdit: this.props.studentToEdit
+                })
+            }
     }
 
     applyChange(evt) {

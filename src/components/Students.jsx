@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Header from './Header';
 import { connect } from "react-redux";
 import $ from "jquery";
-window.$ = $; // to use in terminal while developing
 import * as studentActions from "../actions/studentActions";
 import EditStudentPopup from './EditStudentPopup';
 import { Button } from 'react-materialize';
 import StudentChart from "./StudentChart";
 
+window.$ = $; // to use in terminal while developing
 
 
 class Students extends Component {
@@ -16,7 +16,7 @@ class Students extends Component {
         super(props);
 
         this.state = {
-            studentToEdit : null
+            studentToEdit : this.props.students[0]
         }
 
         window.students = this;
@@ -115,6 +115,12 @@ class Students extends Component {
                         <input type="text" placeholder="Classe do Aluno" id="studentClassFilter" onChange={(evt) => this.applyFilter(evt)} />
                     </form>
 
+                    <div style={{margin: "19px 0"}} className="spaceElements">
+                        
+                        <Button onClick={() => this.createMoreStudents()}> Gerar mais estudantes </Button>
+                        <Button onClick={() => this.showChart()}> Mostrar Gráfico </Button>
+                    </div>
+
                     <table className="highlight" id="studentTable">
                         <thead>
                             <tr>
@@ -139,11 +145,7 @@ class Students extends Component {
                         </tbody>
                     </table>
 
-                    <div style={{marginTop: "43px"}} className="spaceElements">
-                    
-                        <Button onClick={() => this.createMoreStudents()}> Gerar mais estudantes </Button>
-                        <Button onClick={() => this.showChart()}> Mostrar Gráfico </Button>
-                    </div>
+                 
 
                 </div>
             
