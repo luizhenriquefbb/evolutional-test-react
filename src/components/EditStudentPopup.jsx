@@ -18,7 +18,7 @@ class EditStudentPopUp extends Component {
     }
 
     closePopUp() {
-        $(".hover_bkgr_fricc").hide(500);
+        $("#editStudent").hide(500);
     }
 
     getClassesOfADegree(degreeId) {
@@ -112,7 +112,7 @@ class EditStudentPopUp extends Component {
             this.updateStateFromProps();
             return (
                 <div className="">
-                    <div className="hover_bkgr_fricc" style={{ display: this.props.visible ? 'block' : 'none' }} >
+                    <div className="hover_bkgr_fricc" id="editStudent" >
                         <span className="helper"></span>
                         <div>
                             <div onClick={() => this.closePopUp()} className="popupCloseButton">X</div>

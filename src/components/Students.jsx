@@ -5,6 +5,8 @@ import $ from "jquery";
 window.$ = $; // to use in terminal while developing
 import * as studentActions from "../actions/studentActions";
 import EditStudentPopup from './EditStudentPopup';
+import { Button } from 'react-materialize';
+import StudentChart from "./StudentChart";
 
 
 
@@ -86,7 +88,7 @@ class Students extends Component {
     editOneStudent(studentToEdit){
         console.log("editOneStudent");
         
-        $(".hover_bkgr_fricc").show(500);
+        $("#editStudent").show(500);
 
         this.setState({
             studentToEdit
@@ -95,6 +97,9 @@ class Students extends Component {
         
     }
 
+    showChart(){
+        $("#studentChart").show(500);
+    }
 
     render() {
         const students = this.props.students;
@@ -134,13 +139,17 @@ class Students extends Component {
                         </tbody>
                     </table>
 
-                    <div style={{textAlign: "center", marginTop: "43px"}}>
-                        <a className="waves-effect waves-light btn" onClick={() => this.createMoreStudents()}>Gerar mais estudantes</a>
+                    <div style={{marginTop: "43px"}} className="spaceElements">
+                    
+                        <Button onClick={() => this.createMoreStudents()}> Gerar mais estudantes </Button>
+                        <Button onClick={() => this.showChart()}> Mostrar Gráfico </Button>
                     </div>
+
                 </div>
             
                 <EditStudentPopup studentToEdit={this.state.studentToEdit} getClassById={this.getClassById} getDegreeById={this.getDegreeById} />
                 
+                <StudentChart />
             </div>
         );
     }

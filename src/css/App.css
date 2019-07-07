@@ -36,7 +36,7 @@
 /* =========== */
 
 :root {
-    --inputbackground: rgb(195, 193, 193);
+    --inputbackground:whitesmoke;
 }
 
 .body {
@@ -51,7 +51,16 @@
 
 .filters-wrapper input {
     background-color: var(--inputbackground);
+    border-radius: 15px !important;
+	padding: 0 0 0 15px !important;
 }
+
+.spaceElements{
+    text-align: center;
+    justify-content: space-evenly;
+    display: flex;
+}
+
 
 
 /* edit icon */
@@ -91,7 +100,7 @@
     box-shadow: 10px 10px 60px #555;
     display: inline-block;
     height: auto;
-    max-width: 551px;
+    /* max-width: 551px; */
     min-height: 100px;
     vertical-align: middle;
     width: 60%;
