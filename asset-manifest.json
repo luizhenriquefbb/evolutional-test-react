@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/evolutional-test-react/static/css/main.270f1166.chunk.css",
+    "main.js": "/evolutional-test-react/static/js/main.e98eda42.chunk.js",
+    "main.js.map": "/evolutional-test-react/static/js/main.e98eda42.chunk.js.map",
+    "runtime~main.js": "/evolutional-test-react/static/js/runtime~main.92858708.js",
+    "runtime~main.js.map": "/evolutional-test-react/static/js/runtime~main.92858708.js.map",
+    "static/js/2.2fc369bb.chunk.js": "/evolutional-test-react/static/js/2.2fc369bb.chunk.js",
+    "static/js/2.2fc369bb.chunk.js.map": "/evolutional-test-react/static/js/2.2fc369bb.chunk.js.map",
+    "index.html": "/evolutional-test-react/index.html",
+    "precache-manifest.acc1318c7e7ce48a69e9ba0ff38909fd.js": "/evolutional-test-react/precache-manifest.acc1318c7e7ce48a69e9ba0ff38909fd.js",
+    "service-worker.js": "/evolutional-test-react/service-worker.js",
+    "static/css/main.270f1166.chunk.css.map": "/evolutional-test-react/static/css/main.270f1166.chunk.css.map"
+  }
+}
