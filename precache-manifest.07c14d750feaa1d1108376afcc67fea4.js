@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3c9c1e7cdf93ec74d8c2c68666bf0d97",
+    "revision": "9d04093c50396086215b5f5fabb3d60c",
     "url": "/evolutional-test-react/index.html"
   },
   {
-    "revision": "a41fe448c2dec5558ae3",
+    "revision": "940239713c1e6daddc50",
     "url": "/evolutional-test-react/static/css/main.270f1166.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/evolutional-test-react/static/js/2.2fc369bb.chunk.js"
   },
   {
-    "revision": "a41fe448c2dec5558ae3",
-    "url": "/evolutional-test-react/static/js/main.e98eda42.chunk.js"
+    "revision": "940239713c1e6daddc50",
+    "url": "/evolutional-test-react/static/js/main.b66d058d.chunk.js"
   },
   {
     "revision": "efd8dd9454f36f892785",
