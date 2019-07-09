@@ -10,6 +10,10 @@ export function getMatterById(matters, matter_id){
     return matters.find(matter => matter.id === matter_id);
 }
 
+export function getStudentById(students, student_id){
+    return students.find(student => student.id === student_id);
+}
+
 export function  getClassesOfADegree(classes, relations, degreeId) {
 
     const allClasses = classes;
@@ -101,6 +105,13 @@ export function getDegreesOfATeacher(relations, degrees, teacher_id){
     return degrees_found;
 }
 
-export function getStudantsOfAClass(relations, class_id, teacher_id, degree_id) {
-    return [];
+export function getStudentsOfAClass(students, class_id, degree_id) {
+    
+    const studentsOfTheSameClass = students.filter(student => (student.degreeId === degree_id && student.classId === class_id));
+    const students_result = [];
+    for (const student of studentsOfTheSameClass) {
+        students_result.push(getStudentById(students, student.id));
+    }
+
+    return students_result;
 }

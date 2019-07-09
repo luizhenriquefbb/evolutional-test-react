@@ -7,6 +7,14 @@ import StudentsOfClassPopUp from './StudentsOfClassPopUp';
 
 class Teachers extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            studentsToShow: []
+        }
+
+    }
+
     applyFilter(evt) {
         evt.preventDefault();
 
@@ -20,55 +28,65 @@ class Teachers extends Component {
         table_tbody.find("tr").show();
 
         // filter by user name
-        if(userName){
+        if (userName) {
             table_tbody.find("tr:visible").each((_, tr) => {
-                if ($(tr).find("td.teacherName").text().toLowerCase().includes(userName)){
+                if ($(tr).find("td.teacherName").text().toLowerCase().includes(userName)) {
                     $(tr).show();
                 }
-                else{
+                else {
                     $(tr).hide();
                 }
             });
         }
 
         // filter by degree
-        if(userDegree){
+        if (userDegree) {
             table_tbody.find("tr:visible").each((_, tr) => {
-                if ($(tr).find("td.teacherDegree").text().toLowerCase().includes(userDegree)){
+                if ($(tr).find("td.teacherDegree").text().toLowerCase().includes(userDegree)) {
                     $(tr).show();
                 }
-                else{
+                else {
                     $(tr).hide();
                 }
             });
         }
 
         // filter by class
-        if(userClass){
+        if (userClass) {
             table_tbody.find("tr:visible").each((_, tr) => {
-                if ($(tr).find("td.teacherClass").text().toLowerCase().includes(userClass)){
+                if ($(tr).find("td.teacherClass").text().toLowerCase().includes(userClass)) {
                     $(tr).show();
                 }
-                else{
+                else {
                     $(tr).hide();
                 }
             });
         }
 
         // filter by matter
-        if(userMatter){
+        if (userMatter) {
             table_tbody.find("tr:visible").each((_, tr) => {
-                if ($(tr).find("td.teacherMatter").text().toLowerCase().includes(userMatter)){
+                if ($(tr).find("td.teacherMatter").text().toLowerCase().includes(userMatter)) {
                     $(tr).show();
                 }
-                else{
+                else {
                     $(tr).hide();
                 }
             });
         }
     }
 
-    showStudents(){
+    showStudents(teacher_id, degree_id, class_id, ) {
+        console.log('teacher_id', teacher_id);
+        console.log('degree_id', degree_id);
+        console.log('class_id', class_id);
+
+        const students = this.props.students;
+
+        this.setState({
+            studentsToShow: common.getStudentsOfAClass(students, class_id, degree_id)
+        });
+
         $("#showStudentsPopup").show(500);
     }
 
@@ -105,11 +123,11 @@ class Teachers extends Component {
                             {teachers.map(teacher => (
                                 common.getDegreesOfATeacher(relations, degrees, teacher.id).map(degree => {
                                     return common.getClassesOfADegree2(classes, relations, degree.id, teacher.id).map(class_ => (
-                                        <tr key={teacher.id + "-" + degree.id+"-"+class_.id}>
+                                        <tr key={teacher.id + "-" + degree.id + "-" + class_.id}>
                                             <td className="teacherName">{teacher.name}</td>
-                                            <td className="teacherMatter">{"TODO: get matter of teacher.id "+ teacher.id}</td>
+                                            <td className="teacherMatter">{"TODO: get matter of teacher.id " + teacher.id}</td>
                                             <td className="teacherDegree">{degree.name}</td>
-                                            <td className="teacherClass myLink" onClick={() => this.showStudents()}>{class_.name}</td>
+                                            <td className="teacherClass myLink" onClick={() => this.showStudents(teacher.id, degree.id, class_.id)}>{class_.name}</td>
                                         </tr>
                                     ))
                                 }))
@@ -119,8 +137,8 @@ class Teachers extends Component {
 
 
                 </div>
-                
-                <StudentsOfClassPopUp />
+
+                <StudentsOfClassPopUp studentsToShow={this.state.studentsToShow}/>
             </div>
         );
     }

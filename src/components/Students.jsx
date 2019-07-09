@@ -20,7 +20,6 @@ class Students extends Component {
             studentToEdit : this.props.students[0]
         }
 
-        window.students = this;
     }
 
     getClassById(class_id) {
@@ -82,6 +81,7 @@ class Students extends Component {
 
     createMoreStudents(){
         this.props.dispatch((studentActions.createMoreStudents(this.props.degrees, this.props.relations, this.props.classes)));
+        alert("300 Estudantes criados");
     }
 
     editOneStudent(studentToEdit){
