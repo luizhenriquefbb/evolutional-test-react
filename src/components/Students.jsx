@@ -6,6 +6,7 @@ import * as studentActions from "../actions/studentActions";
 import EditStudentPopup from './EditStudentPopup';
 import { Button } from 'react-materialize';
 import StudentChart from "./StudentChart";
+import * as common from "../utils/common"
 
 window.$ = $; // to use in terminal while developing
 
@@ -23,11 +24,11 @@ class Students extends Component {
     }
 
     getClassById(class_id) {
-        return this.props.classes.find(_class => _class.id === class_id);
+        return common.getClassById(this.props.classes, class_id);
     }
 
     getDegreeById(degreeId) {
-        return this.props.degrees.find(degree => degree.id === degreeId);
+        return common.getDegreeById(this.props.degrees, degreeId);
     }
 
     applyFilter(evt) {
@@ -38,6 +39,8 @@ class Students extends Component {
         const userClass = $("form.filters-wrapper").find("input#studentClassFilter").val().toLowerCase();
 
         const table_tbody = $("table#studentTable").find("tbody");
+
+        table_tbody.find("tr").show();
 
         // filter by user name
         if(userName){
@@ -75,10 +78,6 @@ class Students extends Component {
             });
         }
 
-        if (!userName && !userDegree && !userClass){
-            table_tbody.find("tr").show();
-        }
-
     }
 
     createMoreStudents(){
@@ -86,7 +85,6 @@ class Students extends Component {
     }
 
     editOneStudent(studentToEdit){
-        console.log("editOneStudent");
         
         $("#editStudent").show(500);
 
@@ -149,7 +147,7 @@ class Students extends Component {
 
                 </div>
             
-                <EditStudentPopup studentToEdit={this.state.studentToEdit} getClassById={this.getClassById} getDegreeById={this.getDegreeById} />
+                <EditStudentPopup studentToEdit={this.state.studentToEdit}  />
                 
                 <StudentChart />
             </div>
@@ -163,6 +161,7 @@ function mapStateToProps(state) {
         classes: state.classesReducer.classes.classes,
         degrees: state.degreesReducer.degrees,
         relations: state.relationsReducer.relationships,
+        matters: state.matterReducer.matters,
 
     }
 }

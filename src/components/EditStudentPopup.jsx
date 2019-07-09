@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import $ from "jquery";
 import { Select, Button } from "react-materialize";
 import * as studentActions from "../actions/studentActions";
+import * as common from "../utils/common";
 
 
 class EditStudentPopUp extends Component {
@@ -26,31 +27,7 @@ class EditStudentPopUp extends Component {
         const allClasses = this.props.classes;
         const allRelations = this.props.relations;
 
-        // get random classID of this degree (like a join in sql)
-        let allRelationsDegrees = allRelations.map(allRelations => allRelations.degrees); // get only degrees relationship
-        allRelationsDegrees = [].concat.apply([], allRelationsDegrees); // merge in a single list
-
-        const allDegreesWithId = allRelationsDegrees.filter(el => el.degreeId === degreeId);
-
-        let classesForThisDegree = allDegreesWithId.map(el => el.classes);
-        classesForThisDegree = [].concat.apply([], classesForThisDegree);
-
-        const listOfClasses = allClasses.filter(a_class => {
-            return (classesForThisDegree.find(b_class => {
-                // the data are inconsistent: some relatioships have key "classPosition" others "classId" 
-                if (b_class.hasOwnProperty("classPosition")) {
-                    b_class.id = b_class.classPosition
-                } else {
-                    b_class.id = b_class.classId;
-                }
-
-                return b_class.id === a_class.id
-            }))
-        });
-
-
-
-        return listOfClasses;
+        return common.getClassesOfADegree(allClasses, allRelations, degreeId);
     }
 
     updateForm(evt, what) {

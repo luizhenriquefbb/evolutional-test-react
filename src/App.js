@@ -11,8 +11,9 @@ import { Provider } from "react-redux";
 
 function App() {
   window.rootStore = rootStore;
+  window.test = process.env.PUBLIC_URL;
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Provider store={rootStore}>
         <Route path="/">
 

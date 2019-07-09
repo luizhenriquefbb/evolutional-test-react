@@ -16,9 +16,8 @@ class StudentChart extends Component {
         $("#studentChart").hide(500);
     }
 
-    countStudentsInClass(students) {
+    countStudentsInDegree(students) {
 
-        console.log('students', students);
  
         // compressed is a object key:value, where key is degreeId and value is the count_of_student
         var compressed = {};
@@ -32,7 +31,6 @@ class StudentChart extends Component {
             }
         }
         
-        console.log('compressed', compressed);
 
         var ret = [];
         // get cont in exact order of degree store
@@ -40,14 +38,12 @@ class StudentChart extends Component {
             ret.push(isNaN(compressed[degreeId]) ? 0 : compressed[degreeId]);
         }
 
-        console.log('ret', ret);
         return ret;
     };
 
     
     //Function to generate new colors
     getRandomColors(numberOfColors) {
-        console.log('numberOfColors', numberOfColors);
         const colors = [];
         for (let index = 0; index < numberOfColors; index++) {
             // range between 0 e 255
@@ -71,7 +67,7 @@ class StudentChart extends Component {
             datasets: [{
                 label: 'Estudantes por Classe',
                 // data: [12, 19, 3, 5, 2, 3],
-                data: this.countStudentsInClass(this.props.students),
+                data: this.countStudentsInDegree(this.props.students),
                 backgroundColor: colors.map(el=>el.background),
                 borderColor: colors.map(el=>el.border),
                 borderWidth: 1

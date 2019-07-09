@@ -55,6 +55,10 @@
 	padding: 0 0 0 15px !important;
 }
 
+.filters-wrapper input::placeholder {
+    color: grey;
+}
+
 .spaceElements{
     text-align: center;
     justify-content: space-evenly;
@@ -141,3 +145,11 @@
 
 
 /* Popup box END */
+
+.myLink{
+    color: #1a0dab;
+}
+
+.myLink:hover{
+    text-decoration: underline; 
+}
