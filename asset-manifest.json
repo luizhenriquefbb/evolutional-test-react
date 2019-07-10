@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/evolutional-test-react/static/css/main.312ea4bc.chunk.css",
-    "main.js": "/evolutional-test-react/static/js/main.97507af2.chunk.js",
-    "main.js.map": "/evolutional-test-react/static/js/main.97507af2.chunk.js.map",
+    "main.css": "/evolutional-test-react/static/css/main.bf4eac0a.chunk.css",
+    "main.js": "/evolutional-test-react/static/js/main.b5102286.chunk.js",
+    "main.js.map": "/evolutional-test-react/static/js/main.b5102286.chunk.js.map",
     "runtime~main.js": "/evolutional-test-react/static/js/runtime~main.92858708.js",
     "runtime~main.js.map": "/evolutional-test-react/static/js/runtime~main.92858708.js.map",
-    "static/js/2.dadafb40.chunk.js": "/evolutional-test-react/static/js/2.dadafb40.chunk.js",
-    "static/js/2.dadafb40.chunk.js.map": "/evolutional-test-react/static/js/2.dadafb40.chunk.js.map",
+    "static/js/2.aeac08eb.chunk.js": "/evolutional-test-react/static/js/2.aeac08eb.chunk.js",
+    "static/js/2.aeac08eb.chunk.js.map": "/evolutional-test-react/static/js/2.aeac08eb.chunk.js.map",
     "index.html": "/evolutional-test-react/index.html",
-    "precache-manifest.dfc6355af6504e69075ac2e26d6eba75.js": "/evolutional-test-react/precache-manifest.dfc6355af6504e69075ac2e26d6eba75.js",
+    "precache-manifest.c04ce6d7d2e5805421542525ce4d211d.js": "/evolutional-test-react/precache-manifest.c04ce6d7d2e5805421542525ce4d211d.js",
     "service-worker.js": "/evolutional-test-react/service-worker.js",
-    "static/css/main.312ea4bc.chunk.css.map": "/evolutional-test-react/static/css/main.312ea4bc.chunk.css.map",
-    "static/media/in_development.png": "/evolutional-test-react/static/media/in_development.37956f1e.png"
+    "static/css/main.bf4eac0a.chunk.css.map": "/evolutional-test-react/static/css/main.bf4eac0a.chunk.css.map"
   }
 }
