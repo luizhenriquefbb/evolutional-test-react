@@ -15,7 +15,6 @@ class EditStudentPopUp extends Component {
             studentToEdit: this.props.studentToEdit
         }
 
-        window.editStudentPopUp = this;
     }
 
     closePopUp() {

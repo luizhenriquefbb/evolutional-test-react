@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import inDevelopmentImage from "../images/in_development.png";
 import $ from "jquery";
 
 
 class StudentsOfClassPopUp extends Component {
 
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+        // super(props);
 
         // while developing only
-        window.studentsOfClassPopUp = this;
-    }
+        // window.studentsOfClassPopUp = this;
+    // }
+
     closePopUp() {
         $("#showStudentsPopup").hide(500);
     }
 
     render() {
         const students = this.props.studentsToShow;
-        console.log('students', students);
+        const {degreeOrClass} = this.props;
         return (
             <div className="">
                 <div className="hover_bkgr_fricc" id="showStudentsPopup" >
@@ -28,9 +28,8 @@ class StudentsOfClassPopUp extends Component {
 
                         {!(students.length>0) && (
                             <div>
-                                <h2>In development</h2>
+                                <h2>Nenhum estudante para esta {degreeOrClass}</h2>
 
-                                <img style={{ width: "30%" }} src={inDevelopmentImage} alt="" />
                             </div>
                         )}
 

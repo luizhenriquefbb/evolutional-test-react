@@ -1,20 +1,28 @@
-export function getClassById(classes, class_id){
+export function getClassById(classes, class_id) {
     return classes.find(_class => _class.id === class_id);
 }
 
-export function getDegreeById(degrees, degree_id){
+export function getDegreeById(degrees, degree_id) {
     return degrees.find(degree => degree.id === degree_id);
 }
 
-export function getMatterById(matters, matter_id){
-    return matters.find(matter => matter.id === matter_id);
+export function getMattersByTeacherId(matters, relations, teacher_id) {
+    let matters_result = [];
+    
+    for (const relation of relations) {
+        if (relation.teacherId === teacher_id){
+            matters_result.push(matters.find(matter => matter.id === relation.matterId));
+        }
+    }
+
+    return matters_result;
 }
 
-export function getStudentById(students, student_id){
+export function getStudentById(students, student_id) {
     return students.find(student => student.id === student_id);
 }
 
-export function  getClassesOfADegree(classes, relations, degreeId) {
+export function getClassesOfADegree(classes, relations, degreeId) {
 
     const allClasses = classes;
     const allRelations = relations;
@@ -52,29 +60,29 @@ export function  getClassesOfADegree(classes, relations, degreeId) {
  * @param {*} degreeId 
  * @param {*} teacher_id 
  */
-export function  getClassesOfADegree2(classes, relations, degreeId, teacher_id) {
+export function getClassesOfADegree2(classes, relations, degreeId, teacher_id) {
 
-   let listOfClasses = []
-   let degrees_relation = [];
+    let listOfClasses = []
+    let degrees_relation = [];
 
-   for (const relation of relations) {
-        if (relation.teacherId === teacher_id){
+    for (const relation of relations) {
+        if (relation.teacherId === teacher_id) {
 
             degrees_relation = degrees_relation.concat(relation.degrees);
-            
+
             for (const degree_relation of relation.degrees) {
-                if (degree_relation.degreeId === degreeId){
-                   for (const class_ of degree_relation.classes) {
-                        
+                if (degree_relation.degreeId === degreeId) {
+                    for (const class_ of degree_relation.classes) {
+
                         // the data are inconsistent: some relatioships have key "classPosition" others "classId" 
                         if (class_.hasOwnProperty("classPosition")) {
                             class_.id = class_.classPosition
                         } else {
                             class_.id = class_.classId;
                         }
-                        
+
                         listOfClasses.push(getClassById(classes, class_.id));
-                   }
+                    }
                 }
             }
         }
@@ -83,19 +91,19 @@ export function  getClassesOfADegree2(classes, relations, degreeId, teacher_id) 
     return listOfClasses;
 }
 
-export function getDegreesOfATeacher(relations, degrees, teacher_id){
-    
+export function getDegreesOfATeacher(relations, degrees, teacher_id) {
+
     // let degrees_relation = [];
     const degrees_found = [];
 
     for (const relation of relations) {
-        if (relation.teacherId === teacher_id){
+        if (relation.teacherId === teacher_id) {
 
             // degrees_relation = degrees_relation.concat(relation.degrees);
-            
+
             for (const degree_relation of relation.degrees) {
                 const getDegreeResult = getDegreeById(degrees, degree_relation.degreeId);
-                if(getDegreeResult){
+                if (getDegreeResult) {
                     degrees_found.push(getDegreeResult);
                 }
             }
@@ -106,12 +114,19 @@ export function getDegreesOfATeacher(relations, degrees, teacher_id){
 }
 
 export function getStudentsOfAClass(students, class_id, degree_id) {
-    
+
     const studentsOfTheSameClass = students.filter(student => (student.degreeId === degree_id && student.classId === class_id));
     const students_result = [];
     for (const student of studentsOfTheSameClass) {
         students_result.push(getStudentById(students, student.id));
     }
+
+    return students_result;
+}
+
+export function getStudentsOfADegree(students, degree_id) {
+
+    const students_result = students.filter(student => student.degreeId === degree_id);
 
     return students_result;
 }

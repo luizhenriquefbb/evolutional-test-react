@@ -40,8 +40,9 @@
 }
 
 .body {
-    position: relative;
-    top: 60px;
+	position: relative;
+	top: 60px;
+	padding: 0px 38px;
 }
 
 .filters-wrapper {

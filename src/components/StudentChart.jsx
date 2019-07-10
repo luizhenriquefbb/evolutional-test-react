@@ -6,11 +6,11 @@ import { Bar } from "react-chartjs-2";
 
 class StudentChart extends Component {
 
-    constructor(props){
-        super(props);
+    // constructor(props){
+    //     super(props);
 
-        window.studentChart = this;
-    }
+    //     window.studentChart = this; // while developing
+    // }
 
     closePopUp() {
         $("#studentChart").hide(500);
@@ -66,7 +66,6 @@ class StudentChart extends Component {
             labels: this.props.degrees.map(el => el.name),
             datasets: [{
                 label: 'Estudantes por Classe',
-                // data: [12, 19, 3, 5, 2, 3],
                 data: this.countStudentsInDegree(this.props.students),
                 backgroundColor: colors.map(el=>el.background),
                 borderColor: colors.map(el=>el.border),

@@ -3,14 +3,17 @@ import { connect } from "react-redux";
 import Header from './Header';
 import * as common from "../utils/common";
 import $ from "jquery";
-import StudentsOfClassPopUp from './StudentsOfClassPopUp';
+import StudentsToShowPopup from './StudentsToShowPopup';
+import { Button } from 'react-materialize';
+import CreateProfessorPopup from './CreateProfessorPopup';
 
 class Teachers extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            studentsToShow: []
+            studentsToShow: [],
+            degreeOrClass: ""
         }
 
     }
@@ -76,18 +79,31 @@ class Teachers extends Component {
         }
     }
 
-    showStudents(teacher_id, degree_id, class_id, ) {
-        console.log('teacher_id', teacher_id);
-        console.log('degree_id', degree_id);
-        console.log('class_id', class_id);
+    showStudentsOfAClass(degree_id, class_id) {
+        const students = this.props.students;
+
+        this.setState({
+            studentsToShow: common.getStudentsOfAClass(students, class_id, degree_id),
+            degreeOrClass: "Classe"
+        });
+
+        $("#showStudentsPopup").show(500);
+    }
+
+    showStudentsOfADegree(degree_id) {
 
         const students = this.props.students;
 
         this.setState({
-            studentsToShow: common.getStudentsOfAClass(students, class_id, degree_id)
+            studentsToShow: common.getStudentsOfADegree(students, degree_id),
+            degreeOrClass: "Graduação"
         });
 
         $("#showStudentsPopup").show(500);
+    }
+
+    createProfessor(){
+        $("#createProfessor").show(500);
     }
 
     render() {
@@ -95,6 +111,7 @@ class Teachers extends Component {
         const relations = this.props.relations;
         const degrees = this.props.degrees;
         const classes = this.props.classes;
+        const matters = this.props.matters;
 
         return (
             <div className="">
@@ -109,6 +126,10 @@ class Teachers extends Component {
                         <input type="text" placeholder="Classe do Professor" id="teacherClassFilter" onChange={(evt) => this.applyFilter(evt)} />
                     </form>
 
+                    <div style={{margin: "19px 0"}} className="spaceElements">
+                        <Button onClick={() => this.createProfessor()}> Cadastrar professor </Button>
+                    </div>
+
                     <table className="highlight" id="teacherTable">
                         <thead>
                             <tr>
@@ -121,16 +142,19 @@ class Teachers extends Component {
 
                         <tbody>
                             {teachers.map(teacher => (
-                                common.getDegreesOfATeacher(relations, degrees, teacher.id).map(degree => {
-                                    return common.getClassesOfADegree2(classes, relations, degree.id, teacher.id).map(class_ => (
-                                        <tr key={teacher.id + "-" + degree.id + "-" + class_.id}>
-                                            <td className="teacherName">{teacher.name}</td>
-                                            <td className="teacherMatter">{"TODO: get matter of teacher.id " + teacher.id}</td>
-                                            <td className="teacherDegree">{degree.name}</td>
-                                            <td className="teacherClass myLink" onClick={() => this.showStudents(teacher.id, degree.id, class_.id)}>{class_.name}</td>
-                                        </tr>
+
+                                common.getDegreesOfATeacher(relations, degrees, teacher.id).map(degree =>
+                                    common.getMattersByTeacherId(matters, relations, teacher.id).map(matter => (
+                                        common.getClassesOfADegree2(classes, relations, degree.id, teacher.id).map(class_ => (
+                                            <tr key={teacher.id + "-" + degree.id + "-" + class_.id}>
+                                                <td className="teacherName">{teacher.name}</td>
+                                                <td className="teacherMatter">{matter.name}</td>
+                                                <td className="teacherDegree myLink" onClick={() => this.showStudentsOfADegree(degree.id)}>{degree.name}</td>
+                                                <td className="teacherClass myLink" onClick={() => this.showStudentsOfAClass(degree.id, class_.id)}>{class_.name}</td>
+                                            </tr>
+                                        ))
                                     ))
-                                }))
+                                ))
                             )}
                         </tbody>
                     </table>
@@ -138,7 +162,8 @@ class Teachers extends Component {
 
                 </div>
 
-                <StudentsOfClassPopUp studentsToShow={this.state.studentsToShow}/>
+                <StudentsToShowPopup studentsToShow={this.state.studentsToShow} degreeOrClass={this.state.degreeOrClass} />
+                <CreateProfessorPopup />
             </div>
         );
     }
@@ -151,7 +176,8 @@ function mapStateToProps(state) {
         classes: state.classesReducer.classes.classes,
         degrees: state.degreesReducer.degrees,
         relations: state.relationsReducer.relationships,
-        teachers: state.teacherReducer.teachers
+        teachers: state.teacherReducer.teachers,
+        matters: state.matterReducer.matters
     }
 }
 
